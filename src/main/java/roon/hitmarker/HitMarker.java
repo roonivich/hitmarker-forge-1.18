@@ -5,6 +5,7 @@ import java.util.function.BiConsumer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,6 +23,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public class HitMarker {
 
     public static final String MODID = "hitmarker";
+    public static final SoundEvent HIT_SOUND_EVENT = new SoundEvent(new ResourceLocation(MODID, "hit"));
 
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
@@ -36,6 +38,7 @@ public class HitMarker {
         
         //Packets
 		Register();
+        HitMarkerConfig.Register();
         
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         if (FMLEnvironment.dist.isClient()) {

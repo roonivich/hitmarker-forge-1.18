@@ -14,12 +14,12 @@ showAsResourcePack=false
 [[mods]]
   modId="hitmarker"
   version="1.0.0.0"
-  displayName="Hitmarker"
+  displayName="HitMarker"
   # updateJSONURL="minecraftforge.net/versions.json"
   # displayURL="minecraftforge.net"
   # logoFile="logo.png"
   credits="tfarecnim for most of the code, I only ported it"
-  authors="Author"
+  authors="Roonivich"
   description='''
     Adds a hitmarker on hit
   '''

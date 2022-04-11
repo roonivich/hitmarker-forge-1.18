@@ -1,0 +1,9 @@
+{
+    "hit": {
+        "sounds": [
+            {
+                "name": "hitmarker:hit"
+            }
+        ]
+      }
+}

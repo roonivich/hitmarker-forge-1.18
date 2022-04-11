@@ -28,21 +28,17 @@ public class HitMarkerClient {
         }
     }
 
-    private static final ResourceLocation HIT_TEXTURE = new ResourceLocation("hitmarker-forge", "textures/hit.png");
+    private static final ResourceLocation HIT_TEXTURE = new ResourceLocation(HitMarker.MODID, "textures/hit.png");
 
     private static void renderCrosshair(RenderGameOverlayEvent.Post e) {
         // System.out.print(e.getType());
+        
         if (e.getType() == RenderGameOverlayEvent.ElementType.LAYER) {
             if (HitMarkerClient.remainingTicks > 0) {
                 
                 int scaledWidth = Minecraft.getInstance().getWindow().getGuiScaledWidth();
                 int scaledHeight = Minecraft.getInstance().getWindow().getGuiScaledHeight();
-                // PoseStack stack = e.getMatrixStack();
-                // Minecraft.getInstance().getTextureManager().getTexture(HIT_TEXTURE);
 
-                //if (kill) {
-                //    RenderSystem.color4f(0,1,1,1);
-                //}
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
                 if (kill) {
@@ -52,20 +48,19 @@ public class HitMarkerClient {
                     RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f); 
                 }
                 
-                // RenderSystem.setShaderTexture(containerRegistrationClass.container.get(), )
                 RenderSystem.setShaderTexture(0, HIT_TEXTURE);
-                // stack.pushPose();
                 Gui.blit(e.getMatrixStack(), (scaledWidth - 11) / 2, (scaledHeight - 11) / 2, 0.0F, 0.0F, 11, 11, 11, 11);
-                // Minecraft.getInstance().getTextureManager().
-                // stack.pushPose();
+
             }
         }
     }
 
     public static void receiveHit(boolean kill) {
-        System.out.print("client received!");
-        remainingTicks = 20;
-        HitMarkerClient.kill = kill;
+        if(HitMarkerConfig.ClientConfig.hitMarkerEnabled.get()) {
+            Minecraft.getInstance().player.playSound(HitMarker.HIT_SOUND_EVENT, HitMarkerConfig.ClientConfig.hitSoundVolume.get(), 1.0f);
+            remainingTicks = HitMarkerConfig.ClientConfig.hitMarkerDuration.get();
+            HitMarkerClient.kill = kill;
+        }
     }
 
 }
